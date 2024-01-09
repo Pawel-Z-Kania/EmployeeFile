@@ -6,7 +6,16 @@
 
     New text for verifying git pull request
 
-
+    <form class="row nt-3 gx-3 gy-2 align-items-center justify-content-center">
+        <div class="col-sm-6">
+            <label class="visually-hidden" for="specificSizeInputName">Wish</label>
+            <input type="text" name="new-wish-text" class="form-control" [(ngModel)]="newWishText">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary" (click)="$event.preventDefault(); 
+            AddNewWish()">Add Wish</button>
+        </div>
+    </form>
 
     <div *ngIf="items.length == 0; then NoItems else ShowItems"></div>
 
@@ -16,13 +25,22 @@
 
     <ng-template #ShowItems>
         <ul *ngIf="items.length != 0" class="wish-list">
-            <li *ngFor="let item of items">
+            <li *ngFor="let item of items; index as ii">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <!-- <input type="checkbox" class="checkbox">{{item.wishText}} -->
-                        <mat-checkbox class="checkbox" [checked]="item.IsComplete">
+                        <input class="checkbox" type="checkbox" [checked]="item.IsComplete" [attr.data-index]="ii"
+                            (click)="toggleItem(item)">
+                        {{item.wishText}}
+
+
+                        <!-- <mat-checkbox 
+                        class="checkbox" 
+                        [checked]="item.IsComplete"
+                        [attr.data-index] ="ii"
+                        ()
+                        >
                             {{item.wishText}}
-                        </mat-checkbox>
+                        </mat-checkbox> -->
                     </label>
                 </div>
             </li>
